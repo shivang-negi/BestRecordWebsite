@@ -3,21 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>SNS</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="cookie.js"></script>
 </head>
 <body>
     <div class="login-page">
         <div class="form">
-          <form class="registration-form">
-            <input type="text" placeholder="Enter username"/>
-            <input type="password" placeholder="Enter password"/>
-            <input type="password" placeholder="Reenter password"/>
-            <a href="#"><button>Create Account</button></a>
+          <form class="registration-form" method="POST" action="/register_user">
+
+            <input type="text" placeholder="Enter username" onkeypress="return event.charCode != 32" name="username" id="un" minlength="4"/>
+            <input type="password" placeholder="Enter password" minlength="6" name="password" id="pw1"/>
+            <input type="password" placeholder="Reenter password" minlength="6" id="pw2"/>
+            <button onclick="pressed()" type="submit" id="submit">Create Account</button>
             <p class="message">Already Registered? <a href="login.html">Login to your account</a></p>
+            <p class="message">* Username must be 4 characters <br>
+            * Password must be 6 characters</p>
+
           </form>
         </div>
       </div>
+
+      <script>
+
+        function pressed() {
+          const username = document.getElementById('un').value;
+          const pw1 = document.getElementById('pw1').value;
+          const pw2 = document.getElementById('pw2').value;
+          const form = document.querySelector(".registration-form");
+
+          if(username.length < 4) {
+            alert("Username must be atleast 4 characters!");
+            event.preventDefault();
+          }
+          else if (pw1 != pw2) {
+            alert("Passwords do not match. Please check again.");
+            event.preventDefault();
+          }
+          else if(pw1.length < 6) {
+            alert("Password must be atleast 6 characters!");
+            event.preventDefault();
+          }
+        }
+
+        
+      </script>
 
 </body>
 </html>

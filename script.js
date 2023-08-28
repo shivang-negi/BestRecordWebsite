@@ -18,4 +18,22 @@ async function connect(userid, password) {
     }
 }
 
-module.exports = {connect};
+async function checkUserExistsElseAddToDatabase(userid, password) {
+    try {
+        await client.connect();
+        const db = client.db(dbname);
+        const collection = db.collection('id_pw');
+        const findResult = await collection.find({username: userid}).toArray();
+        if(findResult.length == 1) return "found";
+        else {
+            const document = {username: userid, pw: password};
+            await collection.insertOne(document);
+            return "Inserted";
+        }
+    }
+    catch(e) {
+        return "error";
+    }
+}
+
+module.exports = {connect, checkUserExistsElseAddToDatabase};

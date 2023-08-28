@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>SNS</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="cookie.js"></script>
 </head>
 
 <body>
@@ -22,15 +26,8 @@
       </div>
 
       <script type="text/JavaScript">
-        document.getElementById("username").value = "";
-        document.getElementById("password").value = "";
-        function pressed() {
-          var username = document.getElementById("username").value;
-          var password = document.getElementById("password").value;
-          if(username == "" || password == "") {alert("Enter details first!");return;}
-          var url = "https://a672-103-248-123-91.ngrok-free.app/" + username; 
-          window.location.replace(url);
-        }
+        document.getElementById("username").innerHTML = "";
+        document.getElementById("password").innerHTML = "";
       </script>
 </body>
 </html>
