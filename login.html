@@ -8,7 +8,6 @@
     <meta http-equiv="Expires" content="0">
     <title>SNS</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="cookie.js"></script>
 </head>
 
 <body>
@@ -25,9 +24,25 @@
         </div>
       </div>
 
-      <script type="text/JavaScript">
-        document.getElementById("username").innerHTML = "";
-        document.getElementById("password").innerHTML = "";
+      <script>
+        function getCookie(name) {
+          var nameEQ = name + "=";
+          var ca = document.cookie.split(';');
+          for(var i=0;i < ca.length;i++) {
+              var c = ca[i];
+              while (c.charAt(0)==' ') c = c.substring(1,c.length);
+              if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+          }
+          return null;
+        }
+
+        window.onload = function() {
+          var x = getCookie('login');
+          if(x!=null) {
+            console.log("here");
+            window.location.href = "/user/" + x;
+          }
+        }
       </script>
 </body>
 </html>

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - youtube.com/codingnepal -->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -110,7 +109,6 @@ body {
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <script src="cookie.js"></script>
   </head>
 
   <body>
@@ -139,9 +137,25 @@ body {
 
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script>
+        function setCookie(name,value,days) {
+          var expires = "";
+          if (days) {
+              var date = new Date();
+              date.setTime(date.getTime() + (days*24*60*60*1000));
+              expires = "; expires=" + date.toUTCString();
+          }
+          document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        }
+        
+        function eraseCookie(name) {   
+          document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+        
+        const username = window.location.href.split("/").pop();
 
         window.onload = function() {
           socket.emit('score', {un: 'Empty', sc: 0});
+          setCookie('login',username,3);
         };
 
         function retry() {
@@ -150,12 +164,11 @@ body {
         }
 
         function logout() {
-            window.location.replace("https://eb61-103-248-123-93.ngrok-free.app");
+            eraseCookie('login');
+            window.location.replace("/");
         }
-
-        const username = window.location.href.split("/").pop();
         
-        var socket = io.connect('https://eb61-103-248-123-93.ngrok-free.app');
+        var socket = io.connect('https://b38b-103-248-123-94.ngrok-free.app');
         socket.on('update', function(msg) {
             let data = msg.split(" ");
             let user1 = data[0], score1 = data[1];
@@ -185,7 +198,7 @@ body {
 
         // Getting high score from the local storage
         let highScore = localStorage.getItem(username) || 0;
-        highScoreElement.innerText = `High Score: ${highScore}`;
+        // highScoreElement.innerText = `High Score: ${highScore}`;
 
         const updateFoodPosition = () => {
             // Passing a random 1 - 30 value as food position
@@ -235,7 +248,7 @@ body {
                     localStorage.setItem(username, highScore);
                 }
                 scoreElement.innerText = `Score: ${score}`;
-                highScoreElement.innerText = `High Score: ${highScore}`;
+                // highScoreElement.innerText = `High Score: ${highScore}`;
             }
             // Updating the snake's head position based on the current velocity
             snakeX += velocityX;

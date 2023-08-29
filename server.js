@@ -27,7 +27,7 @@ app.post('/user', async (req,res)=>{
     const username = req.body.username;
     const password = req.body.password;
     const check = await connect(username,password);
-    if(check === "error") res.send("Error connecting to server, please try again");
+    if(check === "error") res.send('<script>alert("Error connecting to server! Please try again!"); window.location.href = "/"; </script>');
     else if(check === "not found") {
         res.send('<script>alert("Incorrect username or password"); window.location.href = "/"; </script>');
     }
