@@ -108,6 +108,7 @@ body {
 }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Pragma" content="no-cache">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   </head>
 
@@ -168,7 +169,7 @@ body {
             window.location.replace("/");
         }
         
-        var socket = io.connect('https://b38b-103-248-123-94.ngrok-free.app');
+        var socket = io.connect('https://7737-103-248-123-94.ngrok-free.app');
         socket.on('update', function(msg) {
             let data = msg.split(" ");
             let user1 = data[0], score1 = data[1];

@@ -1,6 +1,7 @@
 const express = require('express');
 const {connect,checkUserExistsElseAddToDatabase} = require('./script.js');
 const app = express();
+const nocache = require('nocache');
 const http = require('http');
 const server = http.createServer(app); 
 
@@ -8,6 +9,7 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 
 app.use(express.static(__dirname));
+app.use(nocache());
 
 var bodyParser = require('body-parser');
 const { send } = require('process');
@@ -16,10 +18,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/', (req,res)=>{
+    console.log("login_page");
     res.status(200).sendFile(__dirname + '\\login.html');
 });
 
 app.get('/register', (req,res)=>{
+    console.log("register_page");
     res.status(200).sendFile(__dirname+'\\register.html');
 })
 
@@ -94,6 +98,7 @@ io.on('connection', (socket) => {
 });
 
 app.get('/user/:username', (req,res)=> {
+    console.log("user_page");
     const username = req.params['username'];
     res.status(200).sendFile(__dirname + '\\user_page.html');
 })
