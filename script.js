@@ -15,7 +15,8 @@ async function connect(userid, password) {
         else return findResult;
     }
     catch(e) {
-        return e;
+        console.log("error");
+        return "error";
     }
 }
 
@@ -33,7 +34,8 @@ async function checkUserExistsElseAddToDatabase(userid, password) {
         }
     }
     catch(e) {
-        return e;
+        console.log(e);
+        return "error";
     }
 }
 

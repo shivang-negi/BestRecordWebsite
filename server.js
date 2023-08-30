@@ -22,7 +22,7 @@ app.use(bodyParser.json())
 
 app.get('/', (req,res)=>{
     console.log("login_page");
-    console.log(process.env.password);
+    // console.log(process.env.password);
     res.status(200).sendFile(path.join(__dirname,'login.html'));
 });
 
