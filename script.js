@@ -15,7 +15,7 @@ async function connect(userid, password) {
         else return findResult;
     }
     catch(e) {
-        console.log("error");
+        console.log(e);
         return "error";
     }
 }
