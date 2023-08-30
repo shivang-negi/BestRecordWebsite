@@ -169,7 +169,7 @@ body {
             window.location.replace("/");
         }
         
-        var socket = io.connect('https://6e75-103-248-123-93.ngrok-free.app');
+        var socket = io.connect('https://best-record.onrender.com/');
         socket.on('update', function(msg) {
             let data = msg.split(" ");
             let user1 = data[0], score1 = data[1];
@@ -243,9 +243,9 @@ body {
                 updateFoodPosition();
                 snakeBody.push([foodY, foodX]); // Pushing food position to snake body array
                 score++; // increment score by 1
+                socket.emit('score', {un: username, sc: score});
                 if(score > highScore) {
                     highScore = score;
-                    socket.emit('score', {un: username, sc: score});
                     localStorage.setItem(username, highScore);
                 }
                 scoreElement.innerText = `Score: ${score}`;

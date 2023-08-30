@@ -39,4 +39,45 @@ async function checkUserExistsElseAddToDatabase(userid, password) {
     }
 }
 
-module.exports = {connect, checkUserExistsElseAddToDatabase};
+async function getHighscores() {
+    try {
+        await client.connect();
+        const db = client.db(dbname);
+        const collection = db.collection('Highscores');
+        const findResult = await collection.find({id: "1"}).toArray();
+        if(findResult.length == 1) return findResult[0];
+        else {
+            return "error"
+        }
+    }
+    catch(e) {
+        console.log(e);
+        return "error";
+    }
+}
+
+async function updateHighscores(score) {
+    try {
+        await client.connect();
+        const db = client.db(dbname);
+        const collection = db.collection('Highscores');
+        const res = await collection.updateOne(
+            {id: "1"},
+            {$set: {highscore: score}},
+            {upsert: false});
+        if(res.modifiedCount == 1) {
+            console.log("modified");
+            return "modified";
+        }
+        else {
+            console.log("notmodified");
+            return "notmodified";
+        }
+    }
+    catch(e) {
+        console.log(e);
+        return "error";
+    }
+}
+
+module.exports = {connect, checkUserExistsElseAddToDatabase, getHighscores, updateHighscores};

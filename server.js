@@ -1,6 +1,6 @@
 const express = require('express');
 require('dotenv').config()
-const {connect,checkUserExistsElseAddToDatabase} = require('./script.js');
+const {connect,checkUserExistsElseAddToDatabase, getHighscores, updateHighscores} = require('./script.js');
 const app = express();
 const nocache = require('nocache');
 const path = require('path');
@@ -70,7 +70,9 @@ io.on('connection', (socket) => {
         const username = score['un'];
         const highscore = score['sc'];
 
-        let data = await readScore();
+        let str = await getHighscores();
+
+        let data = str['highscore'];
         const arr = data.split(" ")
 
         let pairs = [], c = 0;
@@ -97,7 +99,7 @@ io.on('connection', (socket) => {
         for(let i=0;i<5;i++) send_data = send_data + `${pairs[i][0]} ${pairs[i][1]} `;
 
         io.sockets.emit('update', send_data);
-        await fs.writeFile('highscore.txt', send_data);
+        await updateHighscores(send_data);
     });
 });
 
