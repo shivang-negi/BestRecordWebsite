@@ -1,6 +1,7 @@
+require('dotenv').config()
 const { MongoClient } = require('mongodb');
 
-const url = 'mongodb://localhost:27017';
+const url = `mongodb+srv://shivang-negi:${process.env.password}@userdb.8xasm7v.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(url);
 const dbname = 'loginDetails';
 
