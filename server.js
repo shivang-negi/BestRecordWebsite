@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config()
 const {connect,checkUserExistsElseAddToDatabase} = require('./script.js');
 const app = express();
 const nocache = require('nocache');
@@ -21,6 +22,7 @@ app.use(bodyParser.json())
 
 app.get('/', (req,res)=>{
     console.log("login_page");
+    console.log(process.env.password);
     res.status(200).sendFile(path.join(__dirname,'login.html'));
 });
 
