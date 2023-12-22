@@ -245,7 +245,7 @@
       window.location.replace("/");
     }
 
-    var socket = io.connect('http://localhost:5000/');
+    var socket = io.connect('https://best-record.onrender.com/');
     socket.on('update', function (msg) {
       let data = msg.split(" ");
       let user1 = data[0], score1 = data[1];
