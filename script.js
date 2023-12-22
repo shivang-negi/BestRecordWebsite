@@ -66,11 +66,9 @@ async function updateHighscores(score) {
             {$set: {highscore: score}},
             {upsert: false});
         if(res.modifiedCount == 1) {
-            console.log("modified");
             return "modified";
         }
         else {
-            console.log("notmodified");
             return "notmodified";
         }
     }

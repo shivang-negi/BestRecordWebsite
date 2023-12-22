@@ -21,13 +21,10 @@ app.use(bodyParser.json())
 
 
 app.get('/', (req,res)=>{
-    console.log("login_page");
-    // console.log(process.env.password);
     res.status(200).sendFile(path.join(__dirname,'login.html'));
 });
 
 app.get('/register', (req,res)=>{
-    console.log("register_page");
     res.status(200).sendFile(path.join(__dirname,'register.html'));
 })
 
@@ -65,7 +62,6 @@ async function readScore() {
 }
 
 io.on('connection', (socket) => {
-    console.log('connected');
     socket.on('score', async (score) => {
         const username = score['un'];
         const highscore = score['sc'];
@@ -104,7 +100,6 @@ io.on('connection', (socket) => {
 });
 
 app.get('/user/:username', (req,res)=> {
-    console.log("user_page");
     const username = req.params['username'];
     res.status(200).sendFile(path.join(__dirname,'user_page.html'));
 })
